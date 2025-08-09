@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import React from 'react';
 
-const ServicePage = () => {
+const ServiceDetailsPage = ({ params }) => {
+    const id = params?.id;
     const data = [
         {
             "id": "prod-001",
@@ -84,29 +84,28 @@ const ServicePage = () => {
             "reviews": 27000
         }
     ]
-
-
-    return (
-        <div>
-            <h1>service page</h1>
-            <div className='grid grid-cols-4 gap-5'>
+    const matched = data.find(d => d.id == id);
+    if (matched) {
+        return (
+            <div>
+                <h1>service details ServiceDetailsPage.</h1>
+                <p>ID: {id}</p>
                 {
-                    data.map(d => {
-                        return (
-                            <div className='border-1 p-2 rounded-lg'>
-                                <Link href={`/services/${d.id}`}>
-                                    <img src={d.image} alt="" />
-                                </Link>
-                                <h1>{d.name}</h1>
-                                <h1 className='font-bold'>{d.price}</h1>
-                                <p>{d.description}</p>
-                            </div>
-                        )
-                    })
+                    <div>
+                        <h1 className='font-bold'>{matched.name}</h1>
+                        <h2 className='font-bold'>Price: {matched.price}</h2>
+                        <img className='w-1/2' src={matched.image} alt="" />
+                    </div>
                 }
             </div>
-        </div>
-    );
+        );
+    } else {
+        return <>
+            <p>sorry bhai.</p>
+        </>
+        
+    }
+
 };
 
-export default ServicePage;
+export default ServiceDetailsPage;

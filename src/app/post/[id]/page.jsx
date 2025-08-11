@@ -1,9 +1,18 @@
+export const getSinglePost = async (id) => {
+    const singlePostData = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    const postData = await singlePostData.json();
+    return postData;
+}
+
 export default async function SinglePost({ params }) {
     const p = await params;
-    console.log(p.id)
-  return (
-      <div>
-          <p>singlePost: { p.id}</p>
-    </div>
-  );
+    const postData = await getSinglePost(p.id);
+    return (
+        <div className="border-1 border-black p-2 m-2 rounded-lg">
+            {/* <p>{ JSON.stringify(postData)}</p> */}
+            <p className="font-bold">{postData.id}</p>
+            <p className="font-bold">{postData.title}</p>
+            <p>{postData.body}</p>
+        </div>
+    );
 }

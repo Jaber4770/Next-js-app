@@ -1,35 +1,28 @@
-"use client"
-import React, { useEffect, useState } from "react";
+import MealSearchInput from "./components/MealSearchInput";
+import style from "./details.module.css"
 
-export default function MealsPage() {
-    const [meals, setMeals] = useState([]);
-    const [search, setSearch] = useState('');
-
+export default async function MealsPage({searchParams}) {
+    const query = searchParams;
 
     const fetchMeals = async () => {
         try {
-            const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
+            const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query.search}`)
             const data = await res.json();
-            return setMeals(data?.meals || []);
+            return data.meals;
         } catch (error) {
             console.log(error);
             return [];
         }
     }
-
-    useEffect(() => {
-        fetchMeals();
-    }, [search]);
+    const meals = await fetchMeals() || [];
 
     return (
         <div>
-            <div>
-                <input className="border-2 border-black" placeholder="search"    type="text" value={search} onChange={e => setSearch(e.target.value)} />
-            </div>
+            <MealSearchInput></MealSearchInput>
             {
                 meals.map(meal => {
                     return <div>
-                        <div>
+                        <div className={style["post-body"]}>
                             <p>Name: {meal?.strMeal}</p>
                             <p>Origin: {meal?.strArea}</p>
                             <img src={meal?.strMealThumb} alt="" />

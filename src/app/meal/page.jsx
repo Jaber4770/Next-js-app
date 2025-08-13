@@ -23,13 +23,17 @@ export default function MealsPage() {
 
     return (
         <div>
+            <div>
+                <input className="border-2 border-black" placeholder="search"    type="text" value={search} onChange={e => setSearch(e.target.value)} />
+            </div>
             {
                 meals.map(meal => {
                     return <div>
                         <div>
-                            <p>Name: {meal.strMeal}</p>
-                            <p>Origin: {meal.strArea}</p>
-                            <img src={meal.strMealThumb} alt="" />
+                            <p>Name: {meal?.strMeal}</p>
+                            <p>Origin: {meal?.strArea}</p>
+                            <img src={meal?.strMealThumb} alt="" />
+                            <p>description: {meal?.strInstructions}</p>
                         </div>
                     </div>
                 })

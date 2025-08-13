@@ -6,6 +6,11 @@ export const getPosts = async () => {
     return data;
 }
 
+export const metadata = {
+    title: "posts",
+    description: "loa ding ding ding post",
+};
+
 export default async function Post() {
     const posts = await getPosts();
   return (

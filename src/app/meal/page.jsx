@@ -1,6 +1,13 @@
 import MealSearchInput from "./components/MealSearchInput";
 import style from "./details.module.css"
 
+export const metadata = {
+    title: {
+        default: "All Meals",
+        template: "%s | next.app" 
+    }
+};
+
 export default async function MealsPage({searchParams}) {
     const query = searchParams;
 
@@ -15,6 +22,8 @@ export default async function MealsPage({searchParams}) {
         }
     }
     const meals = await fetchMeals() || [];
+
+
 
     return (
         <div>

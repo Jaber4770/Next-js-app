@@ -4,6 +4,22 @@ export const getSinglePost = async (id) => {
     return postData;
 }
 
+
+export async function generateMetadata(
+    { params}
+) {
+    // read route params
+    const { id } = await params;
+    // fetch data
+    const singlePost = await getSinglePost(id);
+    return {
+        title: singlePost.title,
+        description: singlePost.body
+    }
+}
+
+
+
 export default async function SinglePost({ params }) {
     const p = await params;
     const postData = await getSinglePost(p.id);
